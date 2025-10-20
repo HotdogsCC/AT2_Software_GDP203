@@ -127,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EnemyFactory.cpp" />
+    <ClCompile Include="IEnemy.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SingletonTutorial.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
@@ -134,7 +135,10 @@
   <ItemGroup>
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyFactory.h" />
+    <ClInclude Include="EnemyFactoryWProto.h" />
+    <ClInclude Include="GoblinMelee.h" />
     <ClInclude Include="HeavyEnemy.h" />
+    <ClInclude Include="IEnemy.h" />
     <ClInclude Include="MeleeEnemy.h" />
     <ClInclude Include="SingletonTutorial.h" />
     <ClInclude Include="tinyxml2.h" />

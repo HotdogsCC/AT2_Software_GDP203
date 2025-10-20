@@ -5,6 +5,7 @@
 
 #include "SingletonTutorial.h"
 #include "EnemyFactory.h"
+#include "EnemyFactoryWProto.h"
 
 
 void DemonstratingNoneSingleton()
@@ -38,18 +39,25 @@ int main (int argv, char* argc[]){
     //singletons
     //DemonstratingNoneSingleton();
     //DemonstratingSingleton();
-    DemonstratingTemplatedSingleton();
+    //DemonstratingTemplatedSingleton();
 
     //enemy factory
-    EnemyFactory* eFactory = new EnemyFactory();
+    //EnemyFactory* eFactory = new EnemyFactory();
      
     //old instantiation
     //Enemy* e1 = eFactory->CreateEnemy("Melee", Vector2{ 200.0f, 250.0f });
     //Enemy* e2 = eFactory->CreateEnemy("Heavy", Vector2{ 300.0f, 250.0f });
 
     //using xml parser
+    //tinyxml2::XMLDocument doc;
+    //tinyxml2::XMLError eResult = doc.LoadFile("EnemyCollection.xml");
+    
+    //enemy factory with prototyping
+    EnemyFactoryWProto* eFactory = new EnemyFactoryWProto();
+
+    //using xml parser with prototyping
     tinyxml2::XMLDocument doc;
-    tinyxml2::XMLError eResult = doc.LoadFile("EnemyCollection.xml");
+    tinyxml2::XMLError eResult = doc.LoadFile("PrototypeEnemyCollection.xml");
 
     //check it worked
     if (eResult != tinyxml2::XML_SUCCESS)
@@ -63,19 +71,41 @@ int main (int argv, char* argc[]){
     tinyxml2::XMLElement* enemy = root->FirstChildElement("Enemy");
 
     //where the enemies will be stored from the xml
-    std::vector<Enemy*> enemies;
+    //std::vector<Enemy*> enemies;
+
+    //where the enemies will be stored from the xml PROTOTYPING VERSION
+    std::vector<IEnemy*> enemies;
 
     //spawn the enemies
+    //while (enemy)
+    //{
+    //    const char* type;
+    //    float xpos, ypos;
+    //
+    //    type = enemy->Attribute("type");
+    //    enemy->QueryFloatAttribute("xpos", &xpos);
+    //    enemy->QueryFloatAttribute("ypos", &ypos);
+    //
+    //    Enemy* e = eFactory->CreateEnemy(type, Vector2{ xpos, ypos });
+    //    enemies.push_back(e);
+    //
+    //    enemy = enemy->NextSiblingElement("Enemy");
+    //}
+    //
+
+    //spawn enemies with prototype
     while (enemy)
     {
         const char* type;
+        const char* prototype;
         float xpos, ypos;
 
         type = enemy->Attribute("type");
+        prototype = enemy->Attribute("prototype");
         enemy->QueryFloatAttribute("xpos", &xpos);
         enemy->QueryFloatAttribute("ypos", &ypos);
 
-        Enemy* e = eFactory->CreateEnemy(type, Vector2{ xpos, ypos });
+        IEnemy* e = eFactory->CreateEnemy(type, Vector2{ xpos, ypos }, prototype);
         enemies.push_back(e);
 
         enemy = enemy->NextSiblingElement("Enemy");
@@ -92,7 +122,14 @@ int main (int argv, char* argc[]){
         //e1->draw();
         //e2->draw();
 
-        for (Enemy* e : enemies)
+        //draws enemies
+        //for (Enemy* e : enemies)
+        //{
+        //    e->draw();
+        //}
+
+        //draws enemies PROTOTYPING 
+        for (IEnemy* e : enemies)
         {
             e->draw();
         }
