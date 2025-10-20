@@ -1,0 +1,4 @@
+<Enemies>
+	<Enemy type="Melee" xpos="200.0" ypos="250.0" />
+	<Enemy type="Heavy" xpos="300.0" ypos="250.0" />
+</Enemies>
