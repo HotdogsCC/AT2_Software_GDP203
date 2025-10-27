@@ -1,4 +1,5 @@
 #include "PlayerShip.h"
+#include "AchievementSystem.h"
 
 
 PlayerShip::PlayerShip() {
@@ -30,6 +31,8 @@ void PlayerShip::init(std::string shipFileName, std::string bulletFileName) {
 	m_size = { 100,100 };
 	m_moveSpeed = 150.0f;
 	m_active = true;
+
+	AddObserver(&ACHIEVEMENT_SYSTEM);
 
 	Bullet::BULLET_TEXTURE = new Texture2D(LoadTexture(bulletFileName.c_str()));
 
@@ -82,6 +85,7 @@ void PlayerShip::draw(Vector2 screenSize) {
 }
 
 void PlayerShip::destroy() {
+	Notify(this, Event::DAMAGED);
 }
 
 void PlayerShip::fireBullet() {
@@ -95,4 +99,5 @@ void PlayerShip::fireBullet() {
 			break;
 		}
 	}
+
 }

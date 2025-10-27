@@ -2,8 +2,9 @@
 
 #include <raylib.h>
 #include <string>
+#include "Subject.h"
 
-class GameObject {
+class GameObject : public Subject{
 protected:
 	Vector2 m_pos{ 0,0 };
 	float m_rot = 0;

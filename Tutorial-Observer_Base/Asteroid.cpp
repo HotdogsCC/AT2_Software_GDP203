@@ -1,5 +1,6 @@
 #include "Asteroid.h"
 #include <raymath.h>
+#include "AchievementSystem.h"
 
 Texture2D* Asteroid::ASTEROID_TEXTURE = nullptr;
 
@@ -18,6 +19,8 @@ void Asteroid::init(Vector2 spawnPos, Vector2 direction) {
 	m_texture = ASTEROID_TEXTURE;
 	m_tint = GRAY;
 	m_size = { 50,50 };
+
+	AddObserver(&ACHIEVEMENT_SYSTEM);
 
 	spawn(spawnPos, direction);
 }
@@ -38,8 +41,10 @@ void Asteroid::spawn(Vector2 spawnPos, Vector2 direction) {
 	m_scale = 2 + (rand() % 15 - 10) * 0.1f; // 1-2.5
 	m_velocity = Vector2Scale(direction, rand() % 20 + 20); // 20-40
 	m_active = true;
+	Notify(this, Event::SPAWNED);
 }
 
 void Asteroid::destroy() {
 	m_active = false;
+	Notify(this, Event::DAMAGED);
 }

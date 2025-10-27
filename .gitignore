@@ -3,3 +3,10 @@
 Behavioural/Tutorial_Command_Student_Base/Tutorial-Command.vcxproj.user
 Behavioural/Tutorial_Command_Student_Base/x64/Debug/Tutorial-Command.exe
 Behavioural/Tutorial_Command_Student_Base/x64/Debug/Tutorial-Command.pdb
+/Tutorial-Observer_Base/.vs
+/Tutorial-Observer_Base/bin
+/Tutorial-Observer_Base/temp
+Tutorial-Observer_Base/Tutorial-Observer.vcxproj
+Tutorial-Observer_Base/Tutorial-Observer.vcxproj.filters
+Tutorial-Observer_Base/Tutorial-Observer.vcxproj
+Tutorial-Observer_Base/Tutorial-Observer.vcxproj.filters
