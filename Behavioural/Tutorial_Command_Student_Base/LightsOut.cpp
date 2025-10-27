@@ -16,6 +16,9 @@
 #include <stdexcept>
 #include <chrono>
 
+#include "ToggleCommand.h"
+#include "UndoSystem.h"
+
 using namespace std::chrono_literals;
 
 int main() {
@@ -33,6 +36,7 @@ int main() {
         
         //Set up the component and their relationships via pointers
         LightsOutBoard board{ (int)state.size };
+        UndoSystem undoSystem;
         ButtonManager bm;
         UserInterface ui{ &bm };
         DrawLightsOutBoard drawboard{&board,&ui,(int)state.size * 32,state.off_light,state.lines,state.on_light};
@@ -42,13 +46,27 @@ int main() {
         auto board_fn = [&](int id, int xp, int yp) {
             int x = xp / 32;
             int y = yp / 32;
-            Toggle(&board, x, y);
-            state.num_steps--;
+            ToggleCommand* tc = new ToggleCommand(&board, &state, x, y);
+            tc->Do();
+            undoSystem.Add(tc);
             };
 
         auto board_button = new Button{ 0, Rectangle{0,0,(float)state.size * 32,(float)state.size * 32}, board_fn };
         bm.AddButton(board_button);
 
+        auto undo_fn = [&](int id, int xp, int yp){
+                undoSystem.Undo();
+            };
+        Rectangle UndoButtonRect = { 270, 128, 64, 32 };
+        auto undo_button = new TextButton("UNDO", 0, UndoButtonRect, undo_fn);
+        bm.AddButton(undo_button);
+
+        auto redo_fn = [&](int id, int xp, int yp) {
+            undoSystem.Redo();
+            };
+        Rectangle RedoButtonRect = { 398, 128, 64, 32 };
+        auto redo_button = new TextButton("REDO", 0, RedoButtonRect, redo_fn);
+        bm.AddButton(redo_button);
        
         //Make the level but toggle 'level' number of times as a form of difficulty
         LightsOutLevelMaker(&board, state.level, state.level);
@@ -86,6 +104,10 @@ int main() {
                 //Output win message
                 DrawText("Winner Winner!\nChicken Dinner!", 6, 6, 14, Color{ 0,128,255,255 });
             }
+
+            //draw undo buttons
+            undo_button->Draw();
+            redo_button->Draw();
 
             EndDrawing();
         }

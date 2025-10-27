@@ -129,6 +129,8 @@
     <ClCompile Include="IGraphic.cpp" />
     <ClCompile Include="LightsOut.cpp" />
     <ClCompile Include="LightsOutBoard.cpp" />
+    <ClCompile Include="ToggleCommand.cpp" />
+    <ClCompile Include="UndoSystem.cpp" />
     <ClCompile Include="UserInterface.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
@@ -138,9 +140,12 @@
   <ItemGroup>
     <ClInclude Include="ButtonManager.h" />
     <ClInclude Include="DrawLightsOutBoard.h" />
+    <ClInclude Include="ICommand.h" />
     <ClInclude Include="IGraphic.h" />
     <ClInclude Include="LightsOutBoard.h" />
     <ClInclude Include="LightsOutState.h" />
+    <ClInclude Include="ToggleCommand.h" />
+    <ClInclude Include="UndoSystem.h" />
     <ClInclude Include="UserInterface.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
