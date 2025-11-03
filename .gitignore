@@ -22,3 +22,7 @@ SubclassSandbox/SubclassSandbox.sln
 /Sequence-Double/RaylibSt.b0fd9c77/x64
 /Sequence-Double/x64
 Sequence-Double/RaylibStarterProject.vcxproj.user
+/Sequence-GameLoop/.vs
+/Sequence-GameLoop/RaylibSt.b0fd9c77/x64
+/Sequence-GameLoop/x64
+Sequence-GameLoop/RaylibStarterProject.vcxproj.user
